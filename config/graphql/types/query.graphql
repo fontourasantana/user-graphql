@@ -1,0 +1,8 @@
+type RootQuery {
+    user(id: ID!): User
+    users: [User!]!
+    address(id: ID!): Address
+    addresses: [Address!]!
+    document(id: ID!): Document
+    documents: [Document!]!
+}

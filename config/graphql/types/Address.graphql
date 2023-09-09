@@ -1,0 +1,38 @@
+type Address {
+    id: ID!
+    zipcode: String!
+    city: String!
+    neighborhood: String!
+    state: String!
+    street: String!
+    number: String
+    complement: String
+    latitude: String!
+    longitude: String!
+    user: User!
+}
+
+input CreateAddress {
+    zipcode: String!
+    city: String!
+    neighborhood: String!
+    state: String!
+    street: String!
+    number: String
+    complement: String
+    latitude: String!
+    longitude: String!
+    user: ID!
+}
+
+input UpdateAddress {
+    zipcode: String!
+    city: String!
+    neighborhood: String!
+    state: String!
+    street: String!
+    number: String
+    complement: String
+    latitude: String!
+    longitude: String!
+}

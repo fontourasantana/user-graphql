@@ -1,0 +1,18 @@
+type Document {
+    id: ID!
+    type: String!
+    number: String!
+    active: Boolean!
+    user: User!
+}
+
+input CreateDocument {
+    type: String!
+    number: String!
+    active: Boolean!
+    user: ID!
+}
+
+input UpdateDocument {
+    active: Boolean!
+}

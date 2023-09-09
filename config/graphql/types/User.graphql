@@ -1,0 +1,8 @@
+type User {
+    id: ID!
+    email: String!
+    addresses: [Address!]!
+    documents: [Document!]!
+}
+
+# @todo: finalizar implementação dos inputs para criar User

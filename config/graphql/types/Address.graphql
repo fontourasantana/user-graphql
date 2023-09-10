@@ -24,19 +24,6 @@ input CreateAddress {
     longitude: String!
 }
 
-input CreateUserAddress {
-    user: ID!
-    zipcode: String!
-    city: String!
-    neighborhood: String!
-    state: String!
-    street: String!
-    number: String
-    complement: String
-    latitude: String!
-    longitude: String!
-}
-
 input UpdateAddress {
     zipcode: String!
     city: String!

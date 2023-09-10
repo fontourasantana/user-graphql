@@ -22,17 +22,19 @@ class CreateHandler
     }
 
     /**
+     * @param int $userId
      * @param array $data
      * @return Document
      */
-    public function handle(array $data): Document
+    public function handle(int $userId, array $data): Document
     {
         /**
          * @todo: adicionar validação do input
          */
+        $user = $this->userFinderService->getById($userId);
         $documentDto = $this->documentDtoFactory->create($data);
-        $documentDto->setUser($this->userFinderService->getById($data['user']));
         $document = $this->documentCreateService->create($documentDto);
+        $document->setUser($user);
 
         return $this->documentCreateService->save($document);
     }

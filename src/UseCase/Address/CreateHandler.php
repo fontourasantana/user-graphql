@@ -22,17 +22,19 @@ class CreateHandler
     }
 
     /**
+     * @param int $userId
      * @param array $data
      * @return Address
      */
-    public function handle(array $data): Address
+    public function handle(int $userId, array $data): Address
     {
         /**
          * @todo: adicionar validação do input
          */
+        $user = $this->userFinderService->getById($userId);
         $addressDto = $this->addressDtoFactory->create($data);
-        $addressDto->setUser($this->userFinderService->getById($data['user']));
         $address = $this->addressCreateService->create($addressDto);
+        $address->setUser($user);
 
         return $this->addressCreateService->save($address);
     }

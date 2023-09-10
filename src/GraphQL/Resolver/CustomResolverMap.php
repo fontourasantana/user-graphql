@@ -81,9 +81,9 @@ class CustomResolverMap extends ResolverMap
                 ) {
                     return match ($info->fieldName) {
                         'createUser' => $this->createUserHandler->handle($args['user']),
-                        'createDocument' => $this->createDocumentHandler->handle($args['document']),
+                        'createUserDocument' => $this->createDocumentHandler->handle((int) $args['user'], $args['document']),
                         'updateDocument' => $this->updateDocumentHandler->handle((int) $args['id'], $args['document']),
-                        'createAddress' => $this->createAddressHandler->handle($args['address']),
+                        'createUserAddress' => $this->createAddressHandler->handle((int) $args['user'], $args['address']),
                         'updateAddress' => $this->updateAddressHandler->handle((int) $args['id'], $args['address']),
                         default => null
                     };

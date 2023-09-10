@@ -12,13 +12,6 @@ input CreateDocument {
     active: Boolean!
 }
 
-input CreateUserDocument {
-    user: ID!
-    type: String!
-    number: String!
-    active: Boolean!
-}
-
 input UpdateDocument {
     active: Boolean!
 }

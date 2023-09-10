@@ -1,7 +1,7 @@
 type RootMutation {
     createUser(user: CreateUser!): User!
-    createDocument(document: CreateUserDocument!): Document!
+    createUserDocument(user: ID!, document: CreateDocument!): Document!
     updateDocument(id: ID!, document: UpdateDocument!): Document!
-    createAddress(address: CreateUserAddress!): Address!
+    createUserAddress(user: ID!, address: CreateAddress!): Address!
     updateAddress(id: ID!, address: UpdateAddress!): Address!
 }

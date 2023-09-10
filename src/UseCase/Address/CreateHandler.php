@@ -30,9 +30,9 @@ class CreateHandler
         /**
          * @todo: adicionar validação do input
          */
-        $addresDto = $this->addressDtoFactory->create($data);
-        $addresDto->setUser($this->userFinderService->getById($data['user']));
-        $address = $this->addressCreateService->create($addresDto);
+        $addressDto = $this->addressDtoFactory->create($data);
+        $addressDto->setUser($this->userFinderService->getById($data['user']));
+        $address = $this->addressCreateService->create($addressDto);
 
         return $this->addressCreateService->save($address);
     }

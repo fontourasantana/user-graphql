@@ -5,4 +5,9 @@ type User {
     documents: [Document!]!
 }
 
-# @todo: finalizar implementação dos inputs para criar User
+input CreateUser {
+    email: String!
+    password: String!
+    address: CreateAddress!
+    document: CreateDocument!
+}

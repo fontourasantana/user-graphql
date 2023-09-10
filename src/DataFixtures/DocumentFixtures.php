@@ -38,6 +38,9 @@ class DocumentFixtures extends Fixture implements DependentFixtureInterface
      */
     private function getFakeDocument(): Document
     {
+        /**
+         * @todo: utilizar Document\CreateService
+         */
         $documentTypes = ['RG', 'CPF', 'CNH', 'CNPJ'];
 
         return (new Document())

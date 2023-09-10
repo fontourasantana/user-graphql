@@ -28,7 +28,7 @@ class CreateService
         return $this->repository->save(
             (new Address())
                 ->setZipcode($createAddress->getZipcode())
-                ->setCity($createAddress->getNumber())
+                ->setCity($createAddress->getCity())
                 ->setNeighborhood($createAddress->getNeighborhood())
                 ->setState($createAddress->getState())
                 ->setStreet($createAddress->getStreet())

@@ -5,6 +5,7 @@ namespace App\GraphQL\Resolver;
 use ArrayObject;
 use GraphQL\Type\Definition\ResolveInfo;
 use Overblog\GraphQLBundle\Resolver\ResolverMap;
+use App\UseCase\User\CreateHandler as CreateUserHandler;
 use App\UseCase\User\GetAllHandler as GetAllUsersHandler;
 use Overblog\GraphQLBundle\Definition\ArgumentInterface;
 use App\UseCase\User\GetByIdHandler as GetUserByIdHandler;
@@ -22,26 +23,28 @@ class CustomResolverMap extends ResolverMap
     /**
      * @param GetUserByIdHandler $getUserByIdHandler
      * @param GetAllUsersHandler $getAllUsersHandler
+     * @param CreateUserHandler $createUserHandler
      * @param GetAddressByIdHandler $getAddressByIdHandler
      * @param GetAllAddressesHandler $getAllAddressesHandler
+     * @param CreateAddressHandler $createAddressHandler
+     * @param UpdateAddressHandler $updateAddressHandler
      * @param GetDocumentByIdHandler $getDocumentByIdHandler
      * @param GetAllDocumentsHandler $getAllDocumentsHandler
      * @param CreateDocumentHandler $createDocumentHandler
      * @param UpdateDocumentHandler $updateDocumentHandler
-     * @param CreateAddressHandler $createAddressHandler
-     * @param UpdateAddressHandler $updateAddressHandler
      */
     public function __construct(
         private readonly GetUserByIdHandler $getUserByIdHandler,
         private readonly GetAllUsersHandler $getAllUsersHandler,
+        private readonly CreateUserHandler $createUserHandler,
         private readonly GetAddressByIdHandler $getAddressByIdHandler,
         private readonly GetAllAddressesHandler $getAllAddressesHandler,
+        private readonly CreateAddressHandler $createAddressHandler,
+        private readonly UpdateAddressHandler $updateAddressHandler,
         private readonly GetDocumentByIdHandler $getDocumentByIdHandler,
         private readonly GetAllDocumentsHandler $getAllDocumentsHandler,
         private readonly CreateDocumentHandler $createDocumentHandler,
-        private readonly UpdateDocumentHandler $updateDocumentHandler,
-        private readonly CreateAddressHandler $createAddressHandler,
-        private readonly UpdateAddressHandler $updateAddressHandler
+        private readonly UpdateDocumentHandler $updateDocumentHandler
     ) {
     }
 
@@ -77,6 +80,7 @@ class CustomResolverMap extends ResolverMap
                     ResolveInfo $info
                 ) {
                     return match ($info->fieldName) {
+                        'createUser' => $this->createUserHandler->handle($args['user']),
                         'createDocument' => $this->createDocumentHandler->handle($args['document']),
                         'updateDocument' => $this->updateDocumentHandler->handle((int) $args['id'], $args['document']),
                         'createAddress' => $this->createAddressHandler->handle($args['address']),

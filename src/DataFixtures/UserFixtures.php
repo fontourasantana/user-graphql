@@ -50,6 +50,9 @@ class UserFixtures extends Fixture
      */
     private function getFakeUser(): User
     {
+        /**
+         * @todo: utilizar User\CreateService
+         */
         $user = (new User())
             ->setEmail($this->faker->email());
 

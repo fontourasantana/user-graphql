@@ -3,19 +3,21 @@
 namespace App\UseCase\Document;
 
 use App\Entity\Document;
-use App\Dto\DocumentDto;
 use App\Service\Document\UpdateService;
 use App\Service\Document\FinderService;
+use App\Factory\Dto\DocumentDtoFactory;
 
 class UpdateHandler
 {
     /**
-     * @param FinderService $finderService
-     * @param UpdateService $updateService
+     * @param DocumentDtoFactory $documentDtoFactory
+     * @param FinderService $documentFinderService
+     * @param UpdateService $documentUpdateService
      */
     public function __construct(
-        private readonly FinderService $finderService,
-        private readonly UpdateService $updateService
+        private readonly DocumentDtoFactory $documentDtoFactory,
+        private readonly FinderService $documentFinderService,
+        private readonly UpdateService $documentUpdateService
     ) {
     }
 
@@ -28,11 +30,10 @@ class UpdateHandler
     {
         /**
          * @todo: adicionar validação do input
-         * @todo: adicionar mapper para passar dados do array para o dto
          */
-        return $this->updateService->update(
-            $this->finderService->getById($id),
-            (new DocumentDto())->setActive($data['active'])
+        return $this->documentUpdateService->update(
+            $this->documentFinderService->getById($id),
+            $this->documentDtoFactory->createUpdateDocument($data)
         );
     }
 }

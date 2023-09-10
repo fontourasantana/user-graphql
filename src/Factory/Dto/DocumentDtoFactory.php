@@ -18,4 +18,15 @@ class DocumentDtoFactory
             ->setNumber($document['number'])
             ->setActive($document['active']);
     }
+
+    /**
+     * @param array $document
+     * @return DocumentDto
+     */
+    public function createUpdateDocument(
+        array $document
+    ): DocumentDto {
+        return (new DocumentDto())
+            ->setActive($document['active']);
+    }
 }

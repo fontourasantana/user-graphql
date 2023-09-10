@@ -19,9 +19,19 @@ class AddressDtoFactory
             ->setNeighborhood($address['neighborhood'])
             ->setState($address['state'])
             ->setStreet($address['street'])
-            ->setNumber($address['number'])
-            ->setComplement($address['complement'])
+            ->setNumber($address['number'] ?? null)
+            ->setComplement($address['complement'] ?? null)
             ->setLatitude($address['latitude'])
             ->setLongitude($address['longitude']);
+    }
+
+    /**
+     * @param array $address
+     * @return AddressDto
+     */
+    public function createUpdateAddress(
+        array $address
+    ): AddressDto {
+        return $this->create($address);
     }
 }

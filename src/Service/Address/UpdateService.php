@@ -24,13 +24,10 @@ class UpdateService
         Address $address,
         UpdateAddressInterface $updateAddress
     ): Address {
-        /**
-         * @todo: adicionar mapper para passar dados do dto para entidade
-         */
         return $this->repository->save(
             $address
                 ->setZipcode($updateAddress->getZipcode())
-                ->setCity($updateAddress->getNumber())
+                ->setCity($updateAddress->getCity())
                 ->setNeighborhood($updateAddress->getNeighborhood())
                 ->setState($updateAddress->getState())
                 ->setStreet($updateAddress->getStreet())

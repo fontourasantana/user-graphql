@@ -3,19 +3,21 @@
 namespace App\UseCase\Address;
 
 use App\Entity\Address;
-use App\Dto\AddressDto;
 use App\Service\Address\UpdateService;
 use App\Service\Address\FinderService;
+use App\Factory\Dto\AddressDtoFactory;
 
 class UpdateHandler
 {
     /**
-     * @param FinderService $finderService
-     * @param UpdateService $updateService
+     * @param AddressDtoFactory $addressDtoFactory
+     * @param FinderService $addressFinderService
+     * @param UpdateService $addressUpdateService
      */
     public function __construct(
-        private readonly FinderService $finderService,
-        private readonly UpdateService $updateService
+        private readonly AddressDtoFactory $addressDtoFactory,
+        private readonly FinderService $addressFinderService,
+        private readonly UpdateService $addressUpdateService
     ) {
     }
 
@@ -28,20 +30,10 @@ class UpdateHandler
     {
         /**
          * @todo: adicionar validação do input
-         * @todo: adicionar mapper para passar dados do array para o dto
          */
-        return $this->updateService->update(
-            $this->finderService->getById($id),
-            (new AddressDto())
-                ->setZipcode($data['zipcode'])
-                ->setCity($data['city'])
-                ->setNeighborhood($data['neighborhood'])
-                ->setState($data['state'])
-                ->setStreet($data['street'])
-                ->setNumber($data['number'])
-                ->setComplement($data['complement'])
-                ->setLatitude($data['latitude'])
-                ->setLongitude($data['longitude'])
+        return $this->addressUpdateService->update(
+            $this->addressFinderService->getById($id),
+            $this->addressDtoFactory->createUpdateAddress($data)
         );
     }
 }

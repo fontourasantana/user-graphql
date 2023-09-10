@@ -24,9 +24,6 @@ class UpdateService
         Document $document,
         UpdateDocumentInterface $updateDocument
     ): Document {
-        /**
-         * @todo: adicionar mapper para passar dados do dto para entidade
-         */
         return $this->repository->save(
             $document->setActive($updateDocument->isActive())
         );

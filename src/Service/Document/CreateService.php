@@ -4,14 +4,17 @@ namespace App\Service\Document;
 
 use App\Entity\Document;
 use App\Repository\DocumentRepository;
+use App\Factory\Entity\DocumentFactory;
 
 class CreateService
 {
     /**
-     * @param DocumentRepository $repository
+     * @param DocumentRepository $documentRepository
+     * @param DocumentFactory $documentFactory
      */
     public function __construct(
-        private readonly DocumentRepository $repository
+        private readonly DocumentRepository $documentRepository,
+        private readonly DocumentFactory $documentFactory
     ) {
     }
 
@@ -22,15 +25,15 @@ class CreateService
     public function create(
         CreateDocumentInterface $createDocument
     ): Document {
-        /**
-         * @todo: adicionar mapper para passar dados do dto para entidade
-         */
-        return $this->repository->save(
-            (new Document())
-                ->setType($createDocument->getType())
-                ->setNumber($createDocument->getNumber())
-                ->setActive($createDocument->isActive())
-                ->setUser($createDocument->getUser())
-        );
+        return $this->documentFactory->create($createDocument);
+    }
+
+    /**
+     * @param Document $document
+     * @return Document
+     */
+    public function save(Document $document): Document
+    {
+        return $this->documentRepository->save($document);
     }
 }

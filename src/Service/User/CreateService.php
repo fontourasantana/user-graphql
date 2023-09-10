@@ -4,17 +4,17 @@ namespace App\Service\User;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Factory\Entity\UserFactory;
 
 class CreateService
 {
     /**
-     * @param UserRepository $repository
-     * @param UserPasswordHasherInterface $passwordHasher
+     * @param UserRepository $userRepository
+     * @param UserFactory $userFactory
      */
     public function __construct(
-        private readonly UserRepository $repository,
-        private readonly UserPasswordHasherInterface $passwordHasher
+        private readonly UserRepository $userRepository,
+        private readonly UserFactory $userFactory
     ) {
     }
 
@@ -25,15 +25,15 @@ class CreateService
     public function create(
         CreateUserInterface $createUser
     ): User {
-        /**
-         * @todo: adicionar mapper para passar dados do dto para entidade
-         */
-        $user = (new User())
-            ->setEmail($createUser->getEmail());
-        $user->setPassword(
-            $this->passwordHasher->hashPassword($user, $createUser->getPassword())
-        );
+        return $this->userFactory->create($createUser);
+    }
 
-        return $this->repository->save($user);
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function save(User $user): User
+    {
+        return $this->userRepository->save($user);
     }
 }

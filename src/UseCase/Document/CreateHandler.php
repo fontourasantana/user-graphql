@@ -3,18 +3,20 @@
 namespace App\UseCase\Document;
 
 use App\Entity\Document;
-use App\Dto\DocumentDto;
 use App\Service\User\FinderService;
 use App\Service\Document\CreateService;
+use App\Factory\Dto\DocumentDtoFactory;
 
 class CreateHandler
 {
     /**
-     * @param CreateService $createService
+     * @param DocumentDtoFactory $documentDtoFactory
+     * @param CreateService $documentCreateService
      * @param FinderService $userFinderService
      */
     public function __construct(
-        private readonly CreateService $createService,
+        private readonly DocumentDtoFactory $documentDtoFactory,
+        private readonly CreateService $documentCreateService,
         private readonly FinderService $userFinderService
     ) {
     }
@@ -27,14 +29,11 @@ class CreateHandler
     {
         /**
          * @todo: adicionar validação do input
-         * @todo: adicionar mapper para passar dados do array para o dto
          */
-        return $this->createService->create(
-            (new DocumentDto())
-                ->setType($data['type'])
-                ->setNumber($data['number'])
-                ->setActive($data['active'])
-                ->setUser($this->userFinderService->getById($data['user']))
-        );
+        $documentDto = $this->documentDtoFactory->create($data);
+        $documentDto->setUser($this->userFinderService->getById($data['user']));
+        $document = $this->documentCreateService->create($documentDto);
+
+        return $this->documentCreateService->save($document);
     }
 }

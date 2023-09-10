@@ -4,14 +4,17 @@ namespace App\Service\Address;
 
 use App\Entity\Address;
 use App\Repository\AddressRepository;
+use App\Factory\Entity\AddressFactory;
 
 class CreateService
 {
     /**
-     * @param AddressRepository $repository
+     * @param AddressRepository $addressRepository
+     * @param AddressFactory $addressFactory
      */
     public function __construct(
-        private readonly AddressRepository $repository
+        private readonly AddressRepository $addressRepository,
+        private readonly AddressFactory $addressFactory
     ) {
     }
 
@@ -22,21 +25,15 @@ class CreateService
     public function create(
         CreateAddressInterface $createAddress
     ): Address {
-        /**
-         * @todo: adicionar mapper para passar dados do dto para entidade
-         */
-        return $this->repository->save(
-            (new Address())
-                ->setZipcode($createAddress->getZipcode())
-                ->setCity($createAddress->getCity())
-                ->setNeighborhood($createAddress->getNeighborhood())
-                ->setState($createAddress->getState())
-                ->setStreet($createAddress->getStreet())
-                ->setNumber($createAddress->getNumber())
-                ->setComplement($createAddress->getComplement())
-                ->setLatitude($createAddress->getLatitude())
-                ->setLongitude($createAddress->getLongitude())
-                ->setUser($createAddress->getUser())
-        );
+        return $this->addressFactory->create($createAddress);
+    }
+
+    /**
+     * @param Address $address
+     * @return Address
+     */
+    public function save(Address $address): Address
+    {
+        return $this->addressRepository->save($address);
     }
 }

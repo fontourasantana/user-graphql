@@ -38,6 +38,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(
         mappedBy: 'user',
         targetEntity: Address::class,
+        cascade: ['persist'],
+        fetch: 'EXTRA_LAZY',
         orphanRemoval: true
     )]
     private Collection $addresses;
@@ -45,6 +47,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(
         mappedBy: 'user',
         targetEntity: Document::class,
+        cascade: ['persist'],
+        fetch: 'EXTRA_LAZY',
         orphanRemoval: true
     )]
     private Collection $documents;

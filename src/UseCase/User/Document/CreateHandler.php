@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\Document;
+namespace App\UseCase\User\Document;
 
 use App\Entity\Document;
 use App\Service\User\FinderService;

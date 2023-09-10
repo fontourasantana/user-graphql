@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\Address;
+namespace App\UseCase\User\Address;
 
 use App\Entity\Address;
 use App\Service\User\FinderService;
